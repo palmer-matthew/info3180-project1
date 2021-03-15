@@ -1,5 +1,6 @@
 body {
     padding-top: 100px;
+    background-color: #f5f5f5;
 }
 
 /* Header Rulesets*/
@@ -12,4 +13,21 @@ nav span img{
     width: 24px;
     height: auto;
     margin-bottom: 5px;
+}
+
+/*Add Property */
+
+.bold{
+    font-weight: bold;
+}
+
+.color{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+button[type="submit"]{
+    margin-left: 15px;
+    margin-top: 20px;
 }

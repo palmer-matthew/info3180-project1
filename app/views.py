@@ -5,9 +5,11 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
+import os
 from app import app
-from flask import render_template, request, redirect, url_for, flash
-
+from flask import render_template, request, redirect, url_for, flash, send_from_directory
+from .forms import PropertyForm
+from werkzeug.utils import secure_filename
 
 ###
 # Routing for your application.
@@ -24,6 +26,38 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+@app.route('/property', methods=['POST', 'GET'])
+def property():
+    form = PropertyForm()
+    if request.method == "POST":
+        if form.validate_on_submit():
+            file = request.files['photo']
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Form Submitted', 'success')
+            return redirect(url_for('home'))
+        flash_errors(form)
+    return render_template('property.html', form=form)
+
+# def get_uploaded_files():
+#     rootdir = os.getcwd()
+#     lst = []
+#     for subdir, dirs, files in os.walk(rootdir + '/uploads'):
+#         for file in files:
+#             if '.gitkeep' not in file:
+#                 lst.append(file)
+#     return lst
+
+# @app.route('/uploads/<filename>')
+# def get_image(filename):
+#     root_dir = os.getcwd()
+#     return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
+
+
+# @app.route('/files')
+# def files():
+#     file_list = get_uploaded_files()
+#     return render_template('files.html', pics=file_list)
 
 ###
 # The functions below should be applicable to all Flask apps.
