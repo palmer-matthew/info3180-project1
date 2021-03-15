@@ -5,7 +5,7 @@ body {
 
 /* Header Rulesets*/
 
-nav{
+.bg-new-clr{
     background-color: #14b7a6;
 }
 
@@ -30,4 +30,16 @@ nav span img{
 button[type="submit"]{
     margin-left: 15px;
     margin-top: 20px;
+}
+
+.card-dark{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-dark:hover{
+    opacity: 0.75;
+    text-decoration: none;
+    color: white;
 }

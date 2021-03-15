@@ -23,7 +23,7 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/about/')
+@app.route('/about')
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
@@ -48,6 +48,16 @@ def property():
         flash_errors(pform)
     return render_template('property.html', form=pform)
 
+@app.route('/properties')
+def properties():
+    items = db.session.query(Property).all()
+    return render_template('properties.html', items=items)
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
+
 # def get_uploaded_files():
 #     rootdir = os.getcwd()
 #     lst = []
@@ -57,16 +67,8 @@ def property():
 #                 lst.append(file)
 #     return lst
 
-# @app.route('/uploads/<filename>')
-# def get_image(filename):
-#     root_dir = os.getcwd()
-#     return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
 
 
-# @app.route('/files')
-# def files():
-#     file_list = get_uploaded_files()
-#     return render_template('files.html', pics=file_list)
 
 ###
 # The functions below should be applicable to all Flask apps.
