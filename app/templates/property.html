@@ -8,7 +8,7 @@
 <h1 class="bold">Add New Property</h1>
 {% include 'flashmssgs.html' %}
 <div class="color col-lg-9">
-  <form action="{{url_for('property')}}" method="POST">
+  <form action="{{url_for('property')}}" method="POST" enctype="multipart/form-data">
       {{ form.csrf_token }}
       <div class="form-group col-md-10">
         {{ form.title.label(class="bold") }}

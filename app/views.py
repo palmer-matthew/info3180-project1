@@ -6,7 +6,8 @@ This file creates your application.
 """
 
 import os
-from app import app
+import re
+from app import app, db
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from .forms import PropertyForm
 from werkzeug.utils import secure_filename
@@ -29,16 +30,23 @@ def about():
 
 @app.route('/property', methods=['POST', 'GET'])
 def property():
-    form = PropertyForm()
+    pform = PropertyForm()
     if request.method == "POST":
-        if form.validate_on_submit():
+        if pform.validate_on_submit():
             file = request.files['photo']
             filename = secure_filename(file.filename)
+            property = Property(request.form['title'], request.form['description'], request.form['roomnum'], request.form['bathnum'], request.form['price'], request.form['type'], request.form['location'], filename)
+            db.session.add(property)
+            db.session.commit()
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             flash('Form Submitted', 'success')
+            try:
+                pass
+            except:
+                flash('Error Submitting Form', 'danger')
             return redirect(url_for('home'))
-        flash_errors(form)
-    return render_template('property.html', form=form)
+        flash_errors(pform)
+    return render_template('property.html', form=pform)
 
 # def get_uploaded_files():
 #     rootdir = os.getcwd()
