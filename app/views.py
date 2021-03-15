@@ -10,6 +10,7 @@ from app import app
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from .forms import PropertyForm
 from werkzeug.utils import secure_filename
+from .models import Property
 
 ###
 # Routing for your application.

@@ -1,6 +1,9 @@
 from . import db
 
-class PropertyLocation(db.Model):
+class Property(db.Model):
+
+    __tablename__ = 'property'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(150))
     description = db.Column(db.String(255))
