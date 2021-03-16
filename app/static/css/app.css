@@ -9,12 +9,6 @@ body {
     background-color: #14b7a6;
 }
 
-nav span img{
-    width: 24px;
-    height: auto;
-    margin-bottom: 5px;
-}
-
 /*Add Property */
 
 .bold{
@@ -42,4 +36,23 @@ button[type="submit"]{
     opacity: 0.75;
     text-decoration: none;
     color: white;
+}
+
+/*Specific Property Card*/
+
+.op{
+    opacity: 0.5;
+}
+
+.img{
+    width: 24px;
+    height: auto;
+}
+
+.white{
+    color: white;
+}
+
+.nh{
+    height: 100%;
 }

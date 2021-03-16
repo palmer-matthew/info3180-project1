@@ -26,27 +26,33 @@ def home():
 @app.route('/about')
 def about():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
+    return render_template('about.html', name="Properties")
 
 @app.route('/property', methods=['POST', 'GET'])
 def property():
     pform = PropertyForm()
     if request.method == "POST":
         if pform.validate_on_submit():
-            file = request.files['photo']
-            filename = secure_filename(file.filename)
-            property = Property(request.form['title'], request.form['description'], request.form['roomnum'], request.form['bathnum'], request.form['price'], request.form['type'], request.form['location'], filename)
-            db.session.add(property)
-            db.session.commit()
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            flash('Form Submitted', 'success')
             try:
-                pass
+                # file = request.files['photo']
+                # filename = secure_filename(file.filename)
+                # filename = reduce_filename(filename)
+                # property = Property(request.form['title'], request.form['description'], request.form['roomnum'], request.form['bathnum'], request.form['price'], request.form['type'], request.form['location'], filename)
+                # db.session.add(property)
+                # db.session.commit()
+                # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                flash('Sucessfully Added Property', 'success')
+                return redirect(url_for('properties'))
             except:
-                flash('Error Submitting Form', 'danger')
-            return redirect(url_for('home'))
+                flash('Error Adding Property', 'danger')
+                return redirect(url_for('home')) 
         flash_errors(pform)
     return render_template('property.html', form=pform)
+
+@app.route("/property/<propertyid>")
+def get_property(propertyid):
+    property = db.session.query(Property).get(propertyid)
+    return render_template('sproperty.html', place=property)
 
 @app.route('/properties')
 def properties():
@@ -58,21 +64,18 @@ def get_image(filename):
     root_dir = os.getcwd()
     return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
 
-# def get_uploaded_files():
-#     rootdir = os.getcwd()
-#     lst = []
-#     for subdir, dirs, files in os.walk(rootdir + '/uploads'):
-#         for file in files:
-#             if '.gitkeep' not in file:
-#                 lst.append(file)
-#     return lst
-
-
-
+#Reduces the filename of an image to fit in the character length of Property.filename
+def reduce_filename(filename):
+    extension = filename[-4:]
+    main =  filename[:-4]
+    if len(main) > 255:
+        main = main[:250]
+    return main + extension
 
 ###
 # The functions below should be applicable to all Flask apps.
 ###
+
 
 # Display Flask WTF errors as Flash messages
 def flash_errors(form):

@@ -6,16 +6,17 @@
 
 {% block main %}
 <h1 class="bold">Properties</h1>
+{% include 'flashmssgs.html' %}
 <div class="card-deck no-gutters">
    {% for i in items %}
     <div class="card m-1 col-md-4">
         <img class="card-img-top" src="{{url_for('get_image', filename=i.filename)}}" alt="Image of a Building">
         <div class="card-body">
             <h5 class="card-title bold">{{ i.title }}</h5>
-            <p class="card-subtitle text-muted mb-3">{{ i.location }}</p>
+            <p class="card-subtitle text-muted mb-3"><img class="img m-1 op" src="{{ url_for('static', filename='img/place-black-18dp.svg') }}" alt="Home-Icon">{{ i.location }}</p>
             <p class="badge badge-pill badge-primary p-2">${{ i.price }}</p>
         </div>
-        <a class="card-dark" href="#">
+        <a class="card-dark" href="{{url_for('get_property', propertyid=i.id)}}">
             <div class="card-footer text-center bg-new-clr">
                 View Property
             </div>
