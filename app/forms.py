@@ -2,14 +2,16 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileRequired, FileField
 from wtforms.fields import StringField, TextAreaField, IntegerField, DecimalField, SelectField
 from wtforms.validators import InputRequired, ValidationError
+from re import match
 
+# Custom Validators 
 def length_check(max = -1):
     def length(form, field):
         if len(field.data) > max:
             raise ValidationError('Data is greater than {} characters'.format(max))    
     return length
 
-def valid_number():
+def valid_number(form, field):
     def isInt(n):
         try:
             int(n)
@@ -21,15 +23,17 @@ def valid_number():
         try:
             float(n)
         except:
+            # Reg expression retrieved from https://stackoverflow.com/questions/5917082/regular-expression-to-match-numbers-with-or-without-commas-and-decimals-in-text
+            # Contributor: Justin Morgan, Retrieved on March 16, 2021
+            if match(r'^(\d*\.?\d+|\d{1,3}(,\d{3})*(\.\d+)?)$', n) != None:
+                return True
             return False
         return True
 
-    def check(form, field):
-        if isInt(field.data) or isFloat(field.data):
-            pass
-        else:
-            raise ValidationError('Value entered is not a valid integer or decimal') 
-    return check
+    if isInt(field.data) or isFloat(field.data):
+        pass
+    else:
+        raise ValidationError('Value entered is not a valid integer or decimal') 
 
 
 
