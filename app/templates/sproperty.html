@@ -26,13 +26,13 @@
                 <p class="card-text">{{ place.description }}</p>
                 <div class="row">
                     <div class="col-md-4">
-                        <p class="text-muted"><img class="mr-2 op" src="{{ url_for('static', filename='img/bed-24px.svg') }}" alt="Home-Icon">{{ place.no_room }} Bedrooms</p>
+                        <p class="text-muted"><img class="mr-2 op" src="{{ url_for('static', filename='img/bed-24px.svg') }}" alt="Bed-Icon">{{ place.no_room }} Bedrooms</p>
                     </div>
                     <div class="col-md-4">
-                        <p class="text-muted"><img class="mr-2 op" src="{{ url_for('static', filename='img/bathroom-24px.svg') }}" alt="Home-Icon">{{ place.no_bath }} Bathrooms</p>
+                        <p class="text-muted"><img class="mr-2 op" src="{{ url_for('static', filename='img/bathroom-24px.svg') }}" alt="Shower-Icon">{{ place.no_bath }} Bathrooms</p>
                     </div>
                 </div>
-                <p class="card-text text-muted"><img class="img mr-1 op" src="{{ url_for('static', filename='img/place-black-18dp.svg') }}" alt="Home-Icon">{{ place.location }}</p>
+                <p class="card-text text-muted"><img class="img mr-1 op" src="{{ url_for('static', filename='img/place-black-18dp.svg') }}" alt="Location-Icon">{{ place.location }}</p>
                 <a href="#" class="btn card-dark bg-new-clr">Email Realtor</a>
             </div>
         </div>
