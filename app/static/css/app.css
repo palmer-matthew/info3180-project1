@@ -1,3 +1,58 @@
 body {
-    padding-top: 50px;
+    padding-top: 100px;
+    background-color: #f5f5f5;
+}
+
+/* Header Rulesets*/
+
+.bg-new-clr{
+    background-color: #14b7a6;
+}
+
+/*Add Property */
+
+.bold{
+    font-weight: bold;
+}
+
+.color{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+button[type="submit"]{
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.card-dark{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-dark:hover{
+    opacity: 0.75;
+    text-decoration: none;
+    color: white;
+}
+
+/*Specific Property Card*/
+
+.op{
+    opacity: 0.5;
+}
+
+.img{
+    width: 24px;
+    height: auto;
+}
+
+.white{
+    color: white;
+}
+
+.nh{
+    height: 100%;
 }
