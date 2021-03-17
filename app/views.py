@@ -6,7 +6,6 @@ This file creates your application.
 """
 
 import os
-import re
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from .forms import PropertyForm
@@ -34,13 +33,13 @@ def property():
     if request.method == "POST":
         if pform.validate_on_submit():
             try:
-                # file = request.files['photo']
-                # filename = secure_filename(file.filename)
-                # filename = reduce_filename(filename)
-                # property = Property(request.form['title'], request.form['description'], request.form['roomnum'], request.form['bathnum'], request.form['price'], request.form['type'], request.form['location'], filename)
-                # db.session.add(property)
-                # db.session.commit()
-                # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                file = request.files['photo']
+                filename = secure_filename(file.filename)
+                filename = reduce_filename(filename)
+                property = Property(request.form['title'], request.form['description'], request.form['roomnum'], request.form['bathnum'], request.form['price'], request.form['type'], request.form['location'], filename)
+                db.session.add(property)
+                db.session.commit()
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 flash('Sucessfully Added Property', 'success')
                 return redirect(url_for('properties'))
             except:
